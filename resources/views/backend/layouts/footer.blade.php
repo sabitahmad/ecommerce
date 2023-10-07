@@ -814,10 +814,10 @@
     <!-- App js -->
     <script src="{{ url('admin/assets/js/app.js') }}"></script>
     <script>
-        if (Session::has('success')){
+        @if (Session::has('success'))
             Swal.fire({
-                title: "Good job!",
-                text: "You clicked the button!",
+                title: "Success!",
+                text: "{{ session('success') }}",
                 icon: "success",
                 showCancelButton: !0,
                 confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
@@ -825,18 +825,19 @@
                 buttonsStyling: !1,
                 showCloseButton: !0,
             });
-        }
-        if (Session::has('error')){
+        @endif
+        
+        @if (Session::has('error'))
             Swal.fire({
                 title: "Oops...",
-                text: "Something went wrong!",
+                text: "{{ session('error') }}",
                 icon: "error",
                 confirmButtonClass: "btn btn-primary w-xs mt-2",
                 buttonsStyling: !1,
                 footer: '<a href="">Why do I have this issue?</a>',
                 showCloseButton: !0,
             });
-        }
+        @endif
     </script>
 </body>
 

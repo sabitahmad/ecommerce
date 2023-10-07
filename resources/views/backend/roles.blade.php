@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
 
-@section('title', 'Users')
+@section('title', 'Roles')
 @section('main-section')
 
 <div class="row">
@@ -11,7 +11,7 @@
                     <div class="col-sm">
                         <div class="col-xl-2">
                             <div class="search-box">
-                                <input type="text" class="form-control search" placeholder="Search for customer...">
+                                <input type="text" class="form-control search" placeholder="Search for roles...">
                                 <i class="ri-search-line search-icon"></i>
                             </div>
                         </div>
@@ -19,7 +19,7 @@
                     <div class="col-sm-auto">
                         <div class="d-flex flex-wrap align-items-start gap-2">
                             <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                            <button type="button" class="btn btn-primary add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add Customer</button>
+                            <a href="{{ route('roles.create') }}" class="btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Create Role</a>
                             <button type="button" class="btn btn-secondary"><i class="ri-file-download-line align-bottom me-1"></i> Import</button>
                         </div>
                     </div>
@@ -32,16 +32,16 @@
                         <table class="table align-middle" id="customerTable">
                             <thead class="table-light text-muted">
                                 <tr>
-                                    <th class="sort" data-sort="customer_name">Customer</th>
-                                    <th class="sort" data-sort="email">Email</th>
-                                    <th class="sort" data-sort="phone">Phone</th>
-                                    <th class="sort" data-sort="date">Joining Date</th>
+                                    <th class="sort" data-sort="customer_name">SL</th>
+                                    <th class="sort" data-sort="email">Role Name</th>
+                                    <th class="sort" data-sort="phone">Permission</th>
+                                    <th class="sort" data-sort="date">Create Date</th>
                                     <th class="sort" data-sort="status">Status</th>
                                     <th class="sort" data-sort="action">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($users as $user)
+                                {{-- @forelse ($users as $user)
                                 <tr>
                                     <td class="customer_name">{{ $user->name }}</td>
                                     <td class="email">{{ $user->email }}</td>
@@ -180,7 +180,7 @@
                                         <p class="text-muted mb-0">We've searched more than 150+ customer We did not find any customer for you search.</p>
                                     </div>
                                 </div>
-                                @endforelse
+                                @endforelse --}}
                             </tbody>
                         </table>
                     </div>

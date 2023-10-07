@@ -607,16 +607,16 @@
                         
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link {{ Request::is('admin/user') ? 'active':''}}" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
-                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">User Management</span>
+                            <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <i class="las la-user-circle"></i> <span data-key="t-layouts">User Management</span>
                             </a>
-                            <div class="collapse menu-dropdown {{ Request::is('admin/users') ? 'show':''}}" id="sidebarLayouts">
+                            <div class="collapse menu-dropdown {{ Request::is(['admin/users','admin/roles','admin/roles/create']) ? 'show':''}}" id="sidebarLayouts">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
                                         <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('admin/users') ? 'active':''}}" data-key="t-detached">Users</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="layouts-two-column.html"class="nav-link" data-key="t-two-column">Role</a>
+                                        <a href="{{ route('roles.index') }}"class="nav-link {{ Request::is(['admin/roles','admin/roles/create']) ? 'active':''}}" data-key="t-two-column">Role</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="layouts-vertical-hovered.html" class="nav-link" data-key="t-hovered">Permission</a>
