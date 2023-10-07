@@ -70,7 +70,7 @@
                                     </div>
                                 @endif
                                 <div class="p-2 mt-4">
-                                    <form action="{{ route('login') }}" method="POST">
+                                    <form action="{{ route('loginPost') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>

@@ -72,7 +72,7 @@
                                     </div>
                                 @endif
                                 <div class="p-2 mt-4">
-                                    <form class="needs-validation" novalidate action="{{ route('register') }}" method="POST">
+                                    <form class="needs-validation" novalidate action="{{ route('registerPost') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
@@ -92,6 +92,17 @@
                                                 Please enter email
                                             </div>
                                             @error('email')
+                                                <span class="text-danger"><small>{{ $message }}</small></span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter phone" value="{{ old('phone') }}" required>
+                                            <div class="invalid-feedback">
+                                                Please enter phone
+                                            </div>
+                                            @error('phone')
                                                 <span class="text-danger"><small>{{ $message }}</small></span>
                                             @enderror
                                         </div>

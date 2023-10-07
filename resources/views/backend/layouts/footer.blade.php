@@ -786,7 +786,14 @@
     <script src="{{ url('admin/assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ url('admin/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ url('admin/assets/js/plugins.js') }}"></script>
+    <!-- prismjs plugin -->
+    <script src="{{ url('admin/assets/libs/prismjs/prism.js') }}"></script>
 
+    <!-- list.js min js -->
+    <script src="{{ url('admin/assets/libs/list.js/list.min.js') }}"></script>
+    <script src="{{ url('admin/assets/libs/list.pagination.js/list.pagination.min.js') }}"></script>
+    <!-- listjs init -->
+    <script src="{{ url('admin/assets/js/pages/listjs.init.js') }}"></script>
     <!-- apexcharts -->
     <script src="{{ url('admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -800,8 +807,37 @@
     <!-- Dashboard init -->
     <script src="{{ url('admin/assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
 
+    <!-- Sweet Alerts js -->
+    <script src="{{ url('admin/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+    <!--ecommerce-customer init js -->
+    <script src="{{ url('admin/assets/js/pages/ecommerce-customer-list.init.js') }}"></script>
     <!-- App js -->
     <script src="{{ url('admin/assets/js/app.js') }}"></script>
+    <script>
+        if (Session::has('success')){
+            Swal.fire({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success",
+                showCancelButton: !0,
+                confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                cancelButtonClass: "btn btn-danger w-xs mt-2",
+                buttonsStyling: !1,
+                showCloseButton: !0,
+            });
+        }
+        if (Session::has('error')){
+            Swal.fire({
+                title: "Oops...",
+                text: "Something went wrong!",
+                icon: "error",
+                confirmButtonClass: "btn btn-primary w-xs mt-2",
+                buttonsStyling: !1,
+                footer: '<a href="">Why do I have this issue?</a>',
+                showCloseButton: !0,
+            });
+        }
+    </script>
 </body>
 
 </html>

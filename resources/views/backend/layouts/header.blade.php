@@ -17,6 +17,8 @@
     <!--Swiper slider css-->
     <link href="{{ url('admin/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 
+    <!-- Sweet Alert css-->
+    <link href="{{ url('admin/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Layout config Js -->
     <script src="{{ url('admin/assets/js/layout.js') }}"></script>
     <!-- Bootstrap Css -->
@@ -515,7 +517,7 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{ url('admin/assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" src="{{ asset('storage/users/'.Auth::user()->image) }}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ Auth::user()->name }}</span>
                                 <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Founder</span>
@@ -598,29 +600,26 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ route('backend.dashboard') }}">
+                            <a class="nav-link menu-link {{ Request::is('admin/dashboard') ? 'active':''}}" href="{{ route('backend.dashboard') }}">
                                 <i class="ri-honour-line"></i> <span data-key="t-widgets">Dashboard</span>
                             </a>
                         </li> <!-- end Dashboard Menu -->
                         
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
-                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Layouts</span> <span class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
+                            <a class="nav-link menu-link {{ Request::is('admin/user') ? 'active':''}}" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">User Management</span>
                             </a>
-                            <div class="collapse menu-dropdown" id="sidebarLayouts">
+                            <div class="collapse menu-dropdown {{ Request::is('admin/users') ? 'show':''}}" id="sidebarLayouts">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="layouts-horizontal.html" target="_blank" class="nav-link" data-key="t-horizontal">Horizontal</a>
+                                        <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('admin/users') ? 'active':''}}" data-key="t-detached">Users</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="layouts-detached.html" target="_blank" class="nav-link" data-key="t-detached">Detached</a>
+                                        <a href="layouts-two-column.html"class="nav-link" data-key="t-two-column">Role</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Two Column</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="layouts-vertical-hovered.html" target="_blank" class="nav-link" data-key="t-hovered">Hovered</a>
+                                        <a href="layouts-vertical-hovered.html" class="nav-link" data-key="t-hovered">Permission</a>
                                     </li>
                                 </ul>
                             </div>
