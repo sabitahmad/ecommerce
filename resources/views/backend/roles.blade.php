@@ -111,69 +111,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="modal fade" id="showModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header bg-light p-3">
-                                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-                            </div>
-                            <form class="tablelist-form" action="{{ route('users.store') }}" method="POST" >
-                                @csrf
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="customername-field" class="form-label">Customer Name</label>
-                                        <input type="text" name="name" id="customername-field" class="form-control" placeholder="Enter name" required />
-                                        <div class="invalid-feedback">Please enter a customer name.</div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="email-field" class="form-label">Email</label>
-                                        <input type="email" name="email" id="email-field" class="form-control" placeholder="Enter email" required />
-                                        <div class="invalid-feedback">Please enter an email.</div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="phone-field" class="form-label">Phone</label>
-                                        <input type="text" name="phone" id="phone-field" class="form-control" placeholder="Enter phone no." required />
-                                        <div class="invalid-feedback">Please enter a phone.</div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label" for="password-input">Password</label>
-                                        <div class="position-relative auth-pass-inputgroup">
-                                            <input type="password" class="form-control pe-5 password-input" name="password" value="{{ old('password') }}" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" required>
-                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
-                                            <div class="invalid-feedback">
-                                                Please enter password
-                                            </div>
-                                            @error('password')
-                                                <span class="text-danger"><small>{{ $message }}</small></span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label for="status-field" class="form-label">Status</label>
-                                        <select class="form-control" name="status" data-choices data-choices-search-false name="status-field" id="status-field"  required>
-                                            <option value="">Status</option>
-                                            <option value="1">Active</option>
-                                            <option value="0">Block</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="hstack gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success" id="add-btn">Add Customer</button>
-                                        <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
                 
             </div>
         </div>

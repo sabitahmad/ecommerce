@@ -23,7 +23,7 @@
                 <form class="row g-3 needs-validation" action="{{ route('roles.update', $role->id) }}" method="POST" novalidate>
                     @csrf
                     @method('PUT')
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-4">
                         <div class="col-md-4 mx-auto">
                             <label for="rolename" class="form-label">Role name</label>
                             <input type="text" class="form-control" name="role_name" id="rolename" placeholder="Role Name" value="{{ old('role_name', $role->name) }}" required>
@@ -35,44 +35,48 @@
                             @enderror
                         </div>
                     </div>
-                    @foreach($permissions as $permission)
-                        <div class="col-md-3 me-2 card">
-                            <div class="card-header border-bottom-dashed">
-                                <div class="row g-4 align-items-center">
-                                    <div class="col-sm">
-                                        @foreach($permission as $key=>$value)
-                                        <h4 class="card-title mb-0 flex-grow-1">
-                                            @if($key <1)
-                                            {{ucwords($value->prefix)}}
-                                            @endif
-                                        </h4>
-                                        @endforeach
-                                    </div>
-                                    <div class="col-sm-auto">
-                                        <div class="d-flex flex-wrap align-items-start gap-2">
-                                            <div class="form-check form-switch form-switch-md">
-                                                <input class="form-check-input" type="checkbox" role="switch" id="selectAll" >
-                                                <label class="form-check-label" for="selectAll">Select All</label>
+                    <div class="row ms-1">
+                        @foreach($permissions as $permission)
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header border-bottom-dashed">
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-sm">
+                                            @foreach($permission as $key=>$value)
+                                            <h4 class="card-title mb-0 flex-grow-1">
+                                                @if($key <1)
+                                                {{ucwords($value->prefix)}}
+                                                @endif
+                                            </h4>
+                                            @endforeach
+                                        </div>
+                                        <div class="col-sm-auto">
+                                            <div class="d-flex flex-wrap align-items-start gap-2">
+                                                <div class="form-check form-switch form-switch-md">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="selectAll" >
+                                                    <label class="form-check-label" for="selectAll">Select All</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    @foreach($permission as $key=>$value)
-                                    <div class="col-6">
-                                    <!-- Custom Switches -->
-                                        <div class="form-check form-switch form-switch-md mb-3">
-                                            <input class="form-check-input" name="permissions[]" @php if($role->hasPermissionTo($value->name)) echo 'checked'; @endphp value="{{ $value->id }}" type="checkbox" role="switch" id="Switch{{ $value->id }}" >
-                                            <label class="form-check-label" for="Switch{{ $value->id }}">{{ $value->name }}</label>
+                                <div class="card-body">
+                                    <div class="row">
+                                        @foreach($permission as $key=>$value)
+                                        <div class="col-6">
+                                        <!-- Custom Switches -->
+                                            <div class="form-check form-switch form-switch-md mb-3">
+                                                <input class="form-check-input" name="permissions[]" @php if($role->hasPermissionTo($value->name)) echo 'checked'; @endphp value="{{ $value->id }}" type="checkbox" role="switch" id="Switch{{ $value->id }}" >
+                                                <label class="form-check-label" for="Switch{{ $value->id }}">{{ $value->name }}</label>
+                                            </div>
                                         </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                     <div class="col-12">
                         <button class="btn btn-primary" type="submit">Role Update</button>
                     </div>

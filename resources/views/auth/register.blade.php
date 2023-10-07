@@ -74,15 +74,27 @@
                                 <div class="p-2 mt-4">
                                     <form class="needs-validation" novalidate action="{{ route('registerPost') }}" method="POST">
                                         @csrf
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="{{ old('name') }}" required>
-                                            <div class="invalid-feedback">
-                                                Please enter name
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter first name" value="{{ old('fname') }}" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter first name
+                                                </div>
+                                                @error('fname')
+                                                    <span class="text-danger"><small>{{ $message }}</small></span>
+                                                @enderror
                                             </div>
-                                            @error('name')
-                                                <span class="text-danger"><small>{{ $message }}</small></span>
-                                            @enderror
+                                            <div class="col-6 mb-3">
+                                                <label for="lname" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter last name" value="{{ old('lname') }}" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter last name
+                                                </div>
+                                                @error('lname')
+                                                    <span class="text-danger"><small>{{ $message }}</small></span>
+                                                @enderror
+                                            </div>
                                         </div>
 
                                         <div class="mb-3">

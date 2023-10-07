@@ -17,7 +17,8 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'fname' => 'required',
+            'lname' => 'required',
             'email' => 'required|email:filter|unique:users,email',
             'phone' => 'required|unique:users,phone',
             'password' => 'required|min:8',
@@ -25,7 +26,8 @@ class RegisterController extends Controller
 
         //User Store
         $user = User::create([
-            'name' => $request->name,
+            'fname' => $request->fname,
+            'lname' => $request->lname,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request['password']),

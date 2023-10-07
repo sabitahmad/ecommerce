@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Backend\BackendDashboardController;
+use App\Http\Controllers\Backend\BackendPermissionController;
 use App\Http\Controllers\Backend\BackendRoleController;
 use App\Http\Controllers\Backend\BackendUsersController;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,5 @@ Route::middleware(['auth'])->group(function(){
 Route::get('admin/dashboard', [BackendDashboardController::class, 'index'])->name('backend.dashboard');
 Route::resource('admin/users', BackendUsersController::class);
 Route::resource('admin/roles', BackendRoleController::class);
+Route::resource('admin/permissions', BackendPermissionController::class);
 });

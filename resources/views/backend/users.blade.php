@@ -96,7 +96,6 @@
                                         </div>
                                     </div>
                                 </div>
-                               
                                 @empty
                                 <div class="noresult">
                                     <div class="text-center">
