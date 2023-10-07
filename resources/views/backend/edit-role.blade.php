@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
 
-@section('title', 'Create Roles')
+@section('title', 'Edit Roles')
 @section('main-section')
 
 <div class="row">
@@ -9,7 +9,7 @@
             <div class="card-header border-bottom-dashed">
                 <div class="row g-4 align-items-center">
                     <div class="col-sm">
-                        <h4 class="card-title mb-0 flex-grow-1">Create Role</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Edit Role</h4>
                     </div>
                     <div class="col-sm-auto">
                         <div class="d-flex flex-wrap align-items-start gap-2">
@@ -20,12 +20,13 @@
             </div>
            
             <div class="card-body">
-                <form class="row g-3 needs-validation" action="{{ route('roles.store') }}" method="POST" novalidate>
+                <form class="row g-3 needs-validation" action="{{ route('roles.update', $role->id) }}" method="POST" novalidate>
                     @csrf
+                    @method('PUT')
                     <div class="col-md-12">
                         <div class="col-md-4 mx-auto">
                             <label for="rolename" class="form-label">Role name</label>
-                            <input type="text" class="form-control" name="role_name" id="rolename" placeholder="Role Name" value="{{ old('role_name') }}" required>
+                            <input type="text" class="form-control" name="role_name" id="rolename" placeholder="Role Name" value="{{ old('role_name', $role->name) }}" required>
                             <div class="invalid-feedback">
                                 Please enter role name.
                             </div>
@@ -63,7 +64,7 @@
                                     <div class="col-6">
                                     <!-- Custom Switches -->
                                         <div class="form-check form-switch form-switch-md mb-3">
-                                            <input class="form-check-input" name="permissions[]" value="{{ $value->id }}" type="checkbox" role="switch" id="Switch{{ $value->id }}" >
+                                            <input class="form-check-input" name="permissions[]" @php if($role->hasPermissionTo($value->name)) echo 'checked'; @endphp value="{{ $value->id }}" type="checkbox" role="switch" id="Switch{{ $value->id }}" >
                                             <label class="form-check-label" for="Switch{{ $value->id }}">{{ $value->name }}</label>
                                         </div>
                                     </div>
@@ -73,7 +74,7 @@
                         </div>
                     @endforeach
                     <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Role Create</button>
+                        <button class="btn btn-primary" type="submit">Role Update</button>
                     </div>
                 </form>
             </div>

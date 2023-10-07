@@ -519,7 +519,7 @@
                         <span class="d-flex align-items-center">
                             <img class="rounded-circle header-profile-user" src="{{ asset('storage/users/'.Auth::user()->image) }}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ Auth::user()->name }}</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ Auth::user()->fname.' '.Auth::user()->lname }}</span>
                                 <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Founder</span>
                             </span>
                         </span>
@@ -657,7 +657,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-transparent">
-                                <h4 class="mb-sm-0">Ecommerce</h4>
+                                <h4 class="mb-sm-0">@yield('title')</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">

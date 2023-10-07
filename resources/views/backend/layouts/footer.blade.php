@@ -786,9 +786,10 @@
     <script src="{{ url('admin/assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ url('admin/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ url('admin/assets/js/plugins.js') }}"></script>
+
+    
     <!-- prismjs plugin -->
     <script src="{{ url('admin/assets/libs/prismjs/prism.js') }}"></script>
-
     <!-- list.js min js -->
     <script src="{{ url('admin/assets/libs/list.js/list.min.js') }}"></script>
     <script src="{{ url('admin/assets/libs/list.pagination.js/list.pagination.min.js') }}"></script>
@@ -796,21 +797,21 @@
     <script src="{{ url('admin/assets/js/pages/listjs.init.js') }}"></script>
     <!-- apexcharts -->
     <script src="{{ url('admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
     <!-- Vector map-->
     <script src="{{ url('admin/assets/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
     <script src="{{ url('admin/assets/libs/jsvectormap/maps/world-merc.js') }}"></script>
-
     <!--Swiper slider js-->
     <script src="{{ url('admin/assets/libs/swiper/swiper-bundle.min.js') }}"></script>
-
     <!-- Dashboard init -->
     <script src="{{ url('admin/assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
-
     <!-- Sweet Alerts js -->
     <script src="{{ url('admin/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <!--ecommerce-customer init js -->
     <script src="{{ url('admin/assets/js/pages/ecommerce-customer-list.init.js') }}"></script>
+
+    <script src="{{ url('admin/assets/js/pages/form-validation.init.js') }}"></script>
+    <!-- password create init -->
+    <script src="{{ url('admin/assets/js/pages/passowrd-create.init.js') }}"></script>
     <!-- App js -->
     <script src="{{ url('admin/assets/js/app.js') }}"></script>
     <script>

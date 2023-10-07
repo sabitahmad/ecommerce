@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class BackendUsersController extends Controller
 {
@@ -14,7 +15,7 @@ class BackendUsersController extends Controller
      */
     public function index()
     {
-        $data['users'] = User::all();
+        $data['users'] = User::with('roles')->latest()->get();
         return view('backend.users', $data);
     }
 
@@ -23,7 +24,8 @@ class BackendUsersController extends Controller
      */
     public function create()
     {
-        //
+        $data['roles'] = Role::latest()->get();
+        return view('backend.create-user', $data);
     }
 
     /**
@@ -32,21 +34,26 @@ class BackendUsersController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'fname' => 'required',
+            'lname' => 'required',
             'email' => 'required|email:filter|unique:users,email',
             'phone' => 'required|unique:users,phone',
             'status' => 'required',
+            'role' => 'required',
             'password' => 'required|min:6',
         ]);
 
         //User Store
         $user = User::create([
-            'name' => $request->name,
+            'fname' => $request->fname,
+            'lname' => $request->lname,
             'email' => $request->email,
             'phone' => $request->phone,
             'status' => $request->status,
             'password' => Hash::make($request['password']),
         ]);
+
+        $user->syncRoles($request->role);
 
         if($user){
             return back()->with('success','Account Create Successfully!');
@@ -68,34 +75,45 @@ class BackendUsersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['user'] = User::findOrFail($id);
+        $data['roles'] = Role::latest()->get();
+        $data['data'] = $data['user']->roles()->pluck('id')->toArray();
+
+        return view('backend.edit-user', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
+        
         $request->validate([
-            'name' => 'required',
-            'email' => "required|email:filter|unique:users,email,$id,id",
-            'phone' => "required|unique:users,phone,$id,id",
+            'fname' => 'required',
+            'lname' => 'required',
+            'email' => "required|email:filter|unique:users,email,$user->id,id",
+            'phone' => "required|unique:users,phone,$user->id,id",
+            'role' => 'required',
             'status' => 'required',
             'password' => 'nullable|min:6',
         ]);
 
         if(!empty($request->password)){
-            User::findOrFail($id)->update([
+            $user->update([
                 'password' => $request->password,
             ]);
         }
+        
         //User Update
-        $user = User::findOrFail($id)->update([
-            'name' => $request->name,
+        $user->update([
+            'fname' => $request->fname,
+            'lname' => $request->lname,
             'email' => $request->email,
             'phone' => $request->phone,
             'status' => $request->status,
         ]);
+
+        $user->syncRoles($request->role);
 
         if($user){
             return back()->with('success','Account Update Successfully!');

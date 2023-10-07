@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class BackendRoleController extends Controller
 {
@@ -12,7 +14,8 @@ class BackendRoleController extends Controller
      */
     public function index()
     {
-        return view('backend.roles');
+        $data['roles'] = Role::with('permissions')->latest()->get();
+        return view('backend.roles', $data);
     }
 
     /**
@@ -20,7 +23,8 @@ class BackendRoleController extends Controller
      */
     public function create()
     {
-        return view('backend.create-role');
+        $data['permissions'] = Permission::latest()->get()->groupBy('prefix');
+        return view('backend.create-role', $data);
     }
 
     /**
@@ -28,7 +32,18 @@ class BackendRoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'role_name' => 'required|unique:roles,name',
+        ]);
+
+        $role = Role::create([
+            'name' => $request->role_name,
+            'guard_name' => 'web',
+        ]);
+
+        $role->syncPermissions($request->permissions);
+
+        return redirect()->route('roles.index')->with('success', 'Role Created Successfully');
     }
 
     /**
@@ -44,22 +59,37 @@ class BackendRoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['role'] = Role::findOrFail($id);
+        $data['permissions'] = Permission::latest()->get()->groupBy('prefix');
+        return view('backend.edit-role', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $request->validate([
+            'role_name' => "required|unique:roles,name,$role->id,id",
+        ]);
+
+        $role->update([
+            'name' => $request->role_name,
+            'guard_name' => 'web',
+            'updated_at' => date("Y-m-d h:i:sa"),
+        ]);
+
+        $role->syncPermissions($request->permissions);
+
+        return back()->with('success', 'Role Update Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return back()->with('success', 'Role Succussfully Deleted');
     }
 }
