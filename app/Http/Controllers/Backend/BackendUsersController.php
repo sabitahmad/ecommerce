@@ -10,6 +10,13 @@ use Spatie\Permission\Models\Role;
 
 class BackendUsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:view user'])->only('index');
+        $this->middleware(['permission:add user'])->only(['create','store']);
+        $this->middleware(['permission:edit user'])->only(['edit','update']);
+        $this->middleware(['permission:delete user'])->only('distroy');
+    }
     /**
      * Display a listing of the resource.
      */

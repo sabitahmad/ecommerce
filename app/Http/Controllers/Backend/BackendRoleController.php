@@ -9,6 +9,13 @@ use Spatie\Permission\Models\Role;
 
 class BackendRoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:view role'])->only('index');
+        $this->middleware(['permission:add role'])->only(['create','store']);
+        $this->middleware(['permission:edit role'])->only(['edit','update']);
+        $this->middleware(['permission:delete role'])->only('distroy');
+    }
     /**
      * Display a listing of the resource.
      */

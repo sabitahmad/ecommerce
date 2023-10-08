@@ -18,8 +18,9 @@
                     </div>
                     <div class="col-sm-auto">
                         <div class="d-flex flex-wrap align-items-start gap-2">
-                            <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                            <button class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#CreatePermission" ><i class="ri-add-line align-bottom me-1"></i> Create Permission</button>
+                            @can('add permission')
+                                <button class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#CreatePermission" ><i class="ri-add-line align-bottom me-1"></i> Create Permission</button>
+                            @endcan
                             <button type="button" class="btn btn-secondary"><i class="ri-file-download-line align-bottom me-1"></i> Export</button>
                         </div>
                     </div>
@@ -55,8 +56,12 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#Edit-{{ $permission->id }}" class="btn btn-primary btn-sm">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" href="#deleteRole{{ $permission->id }}">Delete</button>
+                                        @can('edit permission')
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#Edit-{{ $permission->id }}" class="btn btn-primary btn-sm">Edit</button>
+                                        @endcan
+                                        @can('delete permission')
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" href="#deleteRole{{ $permission->id }}">Delete</button>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

@@ -8,6 +8,13 @@ use Spatie\Permission\Models\Permission;
 
 class BackendPermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:view permission'])->only('index');
+        $this->middleware(['permission:add permission'])->only(['create','store']);
+        $this->middleware(['permission:edit permission'])->only(['edit','update']);
+        $this->middleware(['permission:delete permission'])->only('distroy');
+    }
     /**
      * Display a listing of the resource.
      */

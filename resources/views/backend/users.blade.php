@@ -18,8 +18,9 @@
                     </div>
                     <div class="col-sm-auto">
                         <div class="d-flex flex-wrap align-items-start gap-2">
-                            <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                            <a href="{{ route('users.create') }}" type="button" class="btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Add User</a>
+                            @can('add user')
+                                <a href="{{ route('users.create') }}" type="button" class="btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Add User</a>
+                            @endcan
                             <button type="button" class="btn btn-secondary"><i class="ri-file-download-line align-bottom me-1"></i> Import</button>
                         </div>
                     </div>
@@ -64,8 +65,12 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('users.edit', $user->id) }}" type="button" class="btn btn-primary btn-sm">Edit</a>
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" href="#deleteUser{{ $user->id }}"">Delete</button>
+                                            @can('edit user')
+                                                <a href="{{ route('users.edit', $user->id) }}" type="button" class="btn btn-primary btn-sm">Edit</a>
+                                            @endcan
+                                            @can('delete user')
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" href="#deleteUser{{ $user->id }}"">Delete</button>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
