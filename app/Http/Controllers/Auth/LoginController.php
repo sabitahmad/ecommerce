@@ -10,13 +10,13 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        return view('admin.auth.login');
     }
 
     public function login(Request $request)
     {
         $user = $request->validate([
-            'email' => 'required|email', //|exists:users,email
+            'email' => 'required|email',
             'password' => 'required|min:5',
         ]);
 
