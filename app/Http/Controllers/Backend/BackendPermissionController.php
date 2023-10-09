@@ -21,7 +21,7 @@ class BackendPermissionController extends Controller
     public function index()
     {
         $data['permissions'] = Permission::latest()->get();
-        return view('backend.permissions', $data);
+        return view('admin.permissions', $data);
     }
 
     /**

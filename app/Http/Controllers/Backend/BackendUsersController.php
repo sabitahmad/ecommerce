@@ -23,7 +23,7 @@ class BackendUsersController extends Controller
     public function index()
     {
         $data['users'] = User::with('roles')->latest()->get();
-        return view('backend.users', $data);
+        return view('admin.users', $data);
     }
 
     /**
@@ -32,7 +32,7 @@ class BackendUsersController extends Controller
     public function create()
     {
         $data['roles'] = Role::latest()->get();
-        return view('backend.create-user', $data);
+        return view('admin.create-user', $data);
     }
 
     /**
@@ -86,7 +86,7 @@ class BackendUsersController extends Controller
         $data['roles'] = Role::latest()->get();
         $data['data'] = $data['user']->roles()->pluck('id')->toArray();
 
-        return view('backend.edit-user', $data);
+        return view('admin.edit-user', $data);
     }
 
     /**

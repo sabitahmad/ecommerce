@@ -6,8 +6,8 @@
             </div>
             <div class="nk-header-brand d-xl-none">
                 <a href="html/index.html" class="logo-link">
-                    <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
-                    <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                    <img class="logo-light logo-img" src="{{ url('admin/assets/images/logo.png') }}" srcset="./images/logo2x.png 2x" alt="logo">
+                    <img class="logo-dark logo-img" src="{{ url('admin/assets/images/logo-dark.png') }}" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
                 </a>
             </div><!-- .nk-header-brand -->
             <div class="nk-header-search ms-3 ms-xl-0">
@@ -19,32 +19,32 @@
                     <li class="dropdown language-dropdown d-none d-sm-block me-n1">
                         <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
                             <div class="quick-icon border border-light">
-                                <img class="icon" src="./images/flags/english-sq.png" alt="">
+                                <img class="icon" src="{{ url('admin/assets/images/flags/english-sq.png') }}" alt="">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-s1">
                             <ul class="language-list">
                                 <li>
                                     <a href="#" class="language-item">
-                                        <img src="./images/flags/english.png" alt="" class="language-flag">
+                                        <img src="{{ url('admin/assets/images/flags/english.png') }}" alt="" class="language-flag">
                                         <span class="language-name">English</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="language-item">
-                                        <img src="./images/flags/spanish.png" alt="" class="language-flag">
+                                        <img src="{{ url('admin/assets/images/flags/spanish.png') }}" alt="" class="language-flag">
                                         <span class="language-name">Español</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="language-item">
-                                        <img src="./images/flags/french.png" alt="" class="language-flag">
+                                        <img src="{{ url('admin/assets/images/flags/french.png') }}" alt="" class="language-flag">
                                         <span class="language-name">Français</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="language-item">
-                                        <img src="./images/flags/turkey.png" alt="" class="language-flag">
+                                        <img src="{{ url('admin/assets/images/flags/turkey.png') }}" alt="" class="language-flag">
                                         <span class="language-name">Türkçe</span>
                                     </a>
                                 </li>
@@ -261,11 +261,11 @@
                         <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
                             <div class="user-toggle">
                                 <div class="user-avatar sm">
-                                    <em class="icon ni ni-user-alt"></em>
+                                    <span>{{ Str::limit(Auth::user()->fname, 1, '').Str::limit(Auth::user()->lname, 1, '') }}</span>
                                 </div>
                                 <div class="user-info d-none d-xl-block">
                                     <div class="user-status user-status-active">Administator</div>
-                                    <div class="user-name dropdown-indicator">Abu Bin Ishityak</div>
+                                    <div class="user-name dropdown-indicator">{{ Auth::user()->fname.' '.Auth::user()->lname }}</div>
                                 </div>
                             </div>
                         </a>
@@ -273,11 +273,11 @@
                             <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                 <div class="user-card">
                                     <div class="user-avatar">
-                                        <span>AB</span>
+                                        <span>{{ Str::limit(Auth::user()->fname, 1, '').Str::limit(Auth::user()->lname, 1, '') }}</span>
                                     </div>
                                     <div class="user-info">
-                                        <span class="lead-text">Abu Bin Ishtiyak</span>
-                                        <span class="sub-text">info@softnio.com</span>
+                                        <span class="lead-text">{{ Auth::user()->fname.' '.Auth::user()->lname }}</span>
+                                        <span class="sub-text">{{ Auth::user()->email }}</span>
                                     </div>
                                 </div>
                             </div>
