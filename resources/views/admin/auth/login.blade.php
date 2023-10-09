@@ -18,20 +18,21 @@
 
 <body class="nk-body bg-white npc-default pg-auth">
 <div class="nk-app-root">
-    <!-- main @s -->
+    <!-- main -->
     <div class="nk-main ">
-        <!-- wrap @s -->
+        <!-- wrap  -->
         <div class="nk-wrap nk-wrap-nosidebar">
-            <!-- content @s -->
+            <!-- content  -->
             <div class="nk-content ">
                 <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
                     <div class="brand-logo pb-4 text-center">
                         <a href="html/index.html" class="logo-link">
-                            <img class="logo-light logo-img logo-img-lg" src="{{asset('admin/assets/images/jsTree/40px.png')}}" srcset="./images/logo2x.png 2x" alt="logo">
-                            <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                            <img class="logo-light logo-img logo-img-lg" src="{{url('admin/assets/images/logo.png')}}" alt="logo">
+                            <img class="logo-dark logo-img logo-img-lg" src="{{url('admin/assets/images/logo-dark.png')}}"  alt="logo-dark">
                         </a>
                     </div>
                     <div class="card">
+                        
                         <div class="card-inner card-inner-lg">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
@@ -41,13 +42,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="html/index.html">
+                            @if (Session::has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong> {{Session::get('success')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        @if (Session::has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong> {{Session::get('error')}} </strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                            <form action="{{ route('loginPost') }}" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <div class="form-label-group">
                                         <label class="form-label" for="default-01">Email or Username</label>
                                     </div>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control form-control-lg" id="default-01" placeholder="Enter your email address or username">
+                                        <input type="text" class="form-control form-control-lg" name="email" id="default-01" placeholder="Enter your email address or username">
+                                        @error('email')
+                                            <span class="text-danger"><small>{{ $message }}</small></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -60,11 +77,14 @@
                                             <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                             <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                         </a>
-                                        <input type="password" class="form-control form-control-lg" id="password" placeholder="Enter your passcode">
+                                        <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Enter your passcode">
+                                        @error('password')
+                                            <span class="text-danger"><small>{{ $message }}</small></span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-lg btn-primary btn-block">Sign in</button>
+                                    <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
                                 </div>
                             </form>
 

@@ -66,6 +66,22 @@ class RolePermissionSeeder extends Seeder
                 'prefix' => 'permission',
                 'name' => 'delete permission'
             ],
+            [
+                'prefix' => 'product',
+                'name' => 'view product'
+            ],
+            [
+                'prefix' => 'product',
+                'name' => 'add product'
+            ],
+            [
+                'prefix' => 'product',
+                'name' => 'edit product'
+            ],
+            [
+                'prefix' => 'product',
+                'name' => 'delete product'
+            ],
         ];
         foreach($permissions as $item){
             Permission::create($item);

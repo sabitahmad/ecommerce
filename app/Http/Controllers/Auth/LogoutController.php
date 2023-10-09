@@ -11,6 +11,6 @@ class LogoutController extends Controller
     public function index()
     {
         Auth::logout();
-        return view('auth.logout');
+        return view('admin.auth.login');
     }
 }
