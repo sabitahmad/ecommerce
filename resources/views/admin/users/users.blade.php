@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-           
+
             <div class="card-body">
                 <div>
                     <div class="table-responsive table-card mb-1">
@@ -72,7 +72,7 @@
                                                 <a href="{{ route('users.edit', $user->id) }}" type="button" class="btn btn-primary btn-sm">Edit</a>
                                             @endcan
                                             @can('delete user')
-                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" href="#deleteUser{{ $user->id }}"">Delete</button>
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" href="#deleteUser{{ $user->id }}">Delete</button>
                                             @endcan
                                         </div>
                                     </td>
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
