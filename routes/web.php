@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\BackendDashboardController;
 use App\Http\Controllers\Backend\BackendPermissionController;
 use App\Http\Controllers\Backend\BackendRoleController;
 use App\Http\Controllers\Backend\BackendUsersController;
+use App\Http\Controllers\Backend\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/users', BackendUsersController::class);
     Route::resource('admin/roles', BackendRoleController::class);
     Route::resource('admin/permissions', BackendPermissionController::class);
+    Route::resource('admin/products', ProductController::class);
 });
 
 
