@@ -32,28 +32,17 @@
                         </a>
                     </div>
                     <div class="card">
-                        
+
                         <div class="card-inner card-inner-lg">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
                                     <h4 class="nk-block-title">Sign-In</h4>
                                     <div class="nk-block-des">
-                                        <p>Access the Dashlite panel using your email and passcode.</p>
+                                        <p>Access the Admin panel using your email and passcode.</p>
                                     </div>
                                 </div>
                             </div>
-                            @if (Session::has('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong> {{Session::get('success')}} </strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
-                        @if (Session::has('error'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong> {{Session::get('error')}} </strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
+
                             <form action="{{ route('loginPost') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
@@ -149,6 +138,25 @@
 <!-- JavaScript -->
 <script src="{{asset('admin/assets/js/bundle.js')}}"></script>
 <script src="{{asset('admin/assets/js/scripts.js')}}"></script>
+
+@if($errors->any())
+
+    <script>
+        @foreach($errors->all() as $error)
+
+
+        (function(NioApp, $){
+            'use strict';
+
+            NioApp.Toast('{{$error}}', 'error', {position: 'top-right'});
+
+        })(NioApp, jQuery);
+
+
+        @endforeach
+    </script>
+
+@endif
 
 </body>
 

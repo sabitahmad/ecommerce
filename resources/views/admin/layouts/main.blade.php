@@ -62,9 +62,25 @@
 <!-- JavaScript -->
 <script src="{{asset('admin/assets/js/bundle.js?ver=3.2.3')}}"></script>
 <script src="{{asset('admin/assets/js/scripts.js?ver=3.2.3')}}"></script>
-<script src="{{asset('admin/assets/js/charts/chart-ecommerce.js')}}"></script>
+
+<script>
+    (function(NioApp, $){
+        'use strict';
+
+        @if(session('success'))
+            NioApp.Toast('{{session('success')}}', 'success', {position: 'top-right'});
+        @elseif(session('error'))
+            NioApp.Toast('{{session('error')}}', 'error', {position: 'top-right'});
+        @elseif(session('info'))
+            NioApp.Toast('{{session('info')}}', 'info', {position: 'top-right'});
+        @endif
+
+    })(NioApp, jQuery);
+</script>
 
 @stack('bottom_js')
+
+
 </body>
 
 </html>

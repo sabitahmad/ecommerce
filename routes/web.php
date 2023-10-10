@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.auth.login');
+    return view('welcome');
 });
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [LoginController::class, 'index'])->name('login');
@@ -29,7 +29,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('register', [RegisterController::class, 'index'])->name('register');
     Route::post('register', [RegisterController::class, 'store'])->name('registerPost');
 });
-Route::get('logout', [LogoutController::class, 'index'])->name('logout');
+Route::get('logout', [LogoutController::class, 'index'])->middleware('auth')->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('admin/dashboard', [BackendDashboardController::class, 'index'])->name('backend.dashboard');
@@ -37,3 +37,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/roles', BackendRoleController::class);
     Route::resource('admin/permissions', BackendPermissionController::class);
 });
+
+

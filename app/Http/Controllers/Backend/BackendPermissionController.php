@@ -18,10 +18,27 @@ class BackendPermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['permissions'] = Permission::latest()->get();
-        return view('admin.permissions', $data);
+        $query_param = [];
+        $search = $request['search'];
+
+        if ($request->has('search')) {
+            $key = explode(' ', $request['search']);
+            $query = Permission::where(function ($q) use ($key) {
+                foreach ($key as $value) {
+                    $q->orWhere('name', 'like', "%{$value}%")
+                        ->orWhere('prefix', 'like', "%{$value}%");
+                }
+            })->latest();
+            $query_param = ['search' => $request['search']];
+        }else{
+            $query = Permission::latest();
+        }
+
+        $permissions = $query->paginate(10)->appends($query_param);
+
+        return view('admin.permissions', compact('permissions', 'search'));
     }
 
     /**
@@ -46,7 +63,7 @@ class BackendPermissionController extends Controller
             'name' => $request->display_name,
             'prefix' => $request->prefix,
         ]);
-        
+
         if($permission){
             return back()->with('success','Permission Create Successfully!');
         }else{
@@ -84,7 +101,7 @@ class BackendPermissionController extends Controller
             'name' => $request->display_name,
             'prefix' => $request->prefix,
         ]);
-        
+
         if($permission){
             return back()->with('success','Permission Update Successfully!');
         }else{
