@@ -4,7 +4,7 @@
 
 @section('head_title', 'Dashboard')
 
-@section('content')
+@section('content')    
     <div class="nk-block">
         <div class="row g-gs">
             <div class="col-xxl-4 col-md-6">
