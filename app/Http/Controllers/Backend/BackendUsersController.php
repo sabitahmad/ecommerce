@@ -20,10 +20,29 @@ class BackendUsersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['users'] = User::with('roles')->latest()->get();
-        return view('admin.users.users', $data);
+        $query_param = [];
+        $search = $request['search'];
+
+        if ($request->has('search')) {
+            $key = explode(' ', $request['search']);
+            $query = User::where(function ($q) use ($key) {
+                foreach ($key as $value) {
+                    $q->orWhere('fname', 'like', "%{$value}%")
+                    ->orWhere('lname', 'like', "%{$value}%")
+                    ->orWhere('email', 'like', "%{$value}%")
+                    ->orWhere('phone', 'like', "%{$value}%");
+                }
+            })->latest();
+            $query_param = ['search' => $request['search']];
+        }else{
+            $query = User::latest();
+        }
+
+        $users = $query->paginate(10)->appends($query_param);
+
+        return view('admin.users.users', compact('users', 'search'));
     }
 
     /**

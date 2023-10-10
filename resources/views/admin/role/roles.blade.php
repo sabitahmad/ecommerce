@@ -13,10 +13,7 @@
                 <div class="row g-4 align-items-center">
                     <div class="col-sm">
                         <div class="col-xl-2">
-                            <div class="search-box">
-                                <input type="text" class="form-control search" placeholder="Search for roles...">
-                                <i class="ri-search-line search-icon"></i>
-                            </div>
+                            <h4>Roles</h4>
                         </div>
                     </div>
                     <div class="col-sm-auto">
@@ -29,11 +26,10 @@
                     </div>
                 </div>
             </div>
-           
             <div class="card-body">
-                <div class="table-responsive table-card mb-1">
-                    <table class="table align-middle">
-                        <thead class="table-light text-muted">
+                <div class="card-inner">
+                    <table class="datatable-init table">
+                        <thead>
                             <tr>
                                 <th >SL</th>
                                 <th >Role Name</th>
@@ -43,12 +39,12 @@
                                 <th >Action</th>
                             </tr>
                         </thead>
-                        <tbody class="bottom">
+                        <tbody>
                             @foreach ($roles as $key=>$role)
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $role->name }}</td>
-                                <td><span class="text-primary fs-3 cursor-pointer" data-bs-toggle="modal" data-bs-target="#permission-{{ $role->id }}"> <i class="bx bx-show"></i></span></td>
+                                <td><span class="text-primary fs-3 cursor-pointer" data-bs-toggle="modal" data-bs-target="#permission-{{ $role->id }}"> <i class="ti ti-eye"></i></span></td>
                                 <td>{{ date('d M, Y', strtotime($role->created_at)) }}</td>
                                 <td>
                                     @if ($role->created_at == $role->updated_at)
@@ -118,9 +114,10 @@
                             @endforeach 
                         </tbody>
                     </table>
+                    
                 </div>
-                
             </div>
+            
         </div>
 
     </div>

@@ -13,10 +13,12 @@
                 <div class="row g-4 align-items-center">
                     <div class="col-sm">
                         <div class="col-xl-2">
-                            <div class="search-box">
-                                <input type="text" class="form-control search" placeholder="Search for customer...">
-                                <i class="ri-search-line search-icon"></i>
-                            </div>
+                            <form action="{{url()->current()}}" method="GET">
+                                <div class="search-box">
+                                    <input type="text" class="form-control search" placeholder="Search for User..." value="{{$search}}" name="search">
+                                    <i class="ri-search-line search-icon"></i>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-sm-auto">
@@ -114,16 +116,59 @@
                                 @endforelse
                             </tbody>
                         </table>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <div class="pagination-wrap hstack gap-2">
-                            <a class="page-item pagination-prev disabled" href="#">
-                                Previous
-                            </a>
-                            <ul class="pagination listjs-pagination mb-0"></ul>
-                            <a class="page-item pagination-next" href="#">
-                                Next
-                            </a>
+                        <div class="card">
+                            <div class="card-inner">
+                                <div class="nk-block-between-md g-3">
+                                    <div class="g">
+                                        <ul class="pagination justify-content-center justify-content-md-start">
+                                            @if($users->previousPageUrl())
+                                                <li class="page-item"><a class="page-link" href="{{ $users->previousPageUrl() }}"><em class="icon ni ni-chevrons-left"></em></a></li>
+                                            @endif
+
+                                            @foreach(range(1, $users->lastPage()) as $page)
+                                                @if($page == $users->currentPage())
+                                                    <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                                                @else
+                                                    <li class="page-item"><a class="page-link" href="{{ $users->url($page) }}">{{ $page }}</a></li>
+                                                @endif
+                                            @endforeach
+
+                                            @if($users->nextPageUrl())
+                                                <li class="page-item"><a class="page-link" href="{{ $users->nextPageUrl() }}"><em class="icon ni ni-chevrons-right"></em></a></li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                    <div class="g">
+                                        <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
+                                            <div>Page</div>
+                                            <div>
+                                                <select class="form-select js-select2 " data-search="on" data-dropdown="xs center">
+                                                    <option value="page-1">1</option>
+                                                    <option value="page-2">2</option>
+                                                    <option value="page-4">4</option>
+                                                    <option value="page-5">5</option>
+                                                    <option value="page-6">6</option>
+                                                    <option value="page-7">7</option>
+                                                    <option value="page-8">8</option>
+                                                    <option value="page-9">9</option>
+                                                    <option value="page-10">10</option>
+                                                    <option value="page-11">11</option>
+                                                    <option value="page-12">12</option>
+                                                    <option value="page-13">13</option>
+                                                    <option value="page-14">14</option>
+                                                    <option value="page-15">15</option>
+                                                    <option value="page-16">16</option>
+                                                    <option value="page-17">17</option>
+                                                    <option value="page-18">18</option>
+                                                    <option value="page-19">19</option>
+                                                    <option value="page-20">20</option>
+                                                </select>
+                                            </div>
+                                            <div>OF 102</div>
+                                        </div>
+                                    </div><!-- .pagination-goto -->
+                                </div><!-- .nk-block-between -->
+                            </div>
                         </div>
                     </div>
                 </div>

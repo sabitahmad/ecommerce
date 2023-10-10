@@ -14,6 +14,10 @@
     <!-- StyleSheets  -->
 
     @stack('top_css')
+    {{-- Icon --}}
+    <link rel="stylesheet" href="{{asset('admin/assets/css/libs/fontawesome-icons.css?ver=3.2.3')}}">
+    <link rel="stylesheet" href="{{asset('admin/assets/css/libs/themify-icons.css?ver=3.2.3')}}">
+    {{-- Icon --}}
     <link rel="stylesheet" href="{{asset('admin/assets/css/dashlite.css?ver=3.2.3')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('admin/assets/css/theme.css?ver=3.2.3')}}">
 </head>
@@ -62,7 +66,9 @@
 <!-- JavaScript -->
 <script src="{{asset('admin/assets/js/bundle.js?ver=3.2.3')}}"></script>
 <script src="{{asset('admin/assets/js/scripts.js?ver=3.2.3')}}"></script>
-
+{{-- Datatable --}}
+<script src="{{asset('admin/assets/js/libs/datatable-btns.js?ver=3.2.3')}}"></script>
+{{-- Datatable --}}
 <script>
     (function(NioApp, $){
         'use strict';

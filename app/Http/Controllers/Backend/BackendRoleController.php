@@ -19,10 +19,26 @@ class BackendRoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['roles'] = Role::with('permissions')->latest()->get();
-        return view('admin.role.roles', $data);
+        $query_param = [];
+        $search = $request['search'];
+
+        if ($request->has('search')) {
+            $key = explode(' ', $request['search']);
+            $query = Role::where(function ($q) use ($key) {
+                foreach ($key as $value) {
+                    $q->orWhere('name', 'like', "%{$value}%");
+                }
+            })->latest();
+            $query_param = ['search' => $request['search']];
+        }else{
+            $query = Role::latest();
+        }
+
+        $roles = $query->paginate(10)->appends($query_param);
+
+        return view('admin.role.roles', compact('roles', 'search'));
     }
 
     /**
