@@ -22,7 +22,7 @@ class BackendRoleController extends Controller
     public function index()
     {
         $data['roles'] = Role::with('permissions')->latest()->get();
-        return view('admin.roles', $data);
+        return view('admin.role.roles', $data);
     }
 
     /**
@@ -31,7 +31,7 @@ class BackendRoleController extends Controller
     public function create()
     {
         $data['permissions'] = Permission::latest()->get()->groupBy('prefix');
-        return view('admin.create-role', $data);
+        return view('admin.role.create-role', $data);
     }
 
     /**
@@ -68,7 +68,7 @@ class BackendRoleController extends Controller
     {
         $data['role'] = Role::findOrFail($id);
         $data['permissions'] = Permission::latest()->get()->groupBy('prefix');
-        return view('admin.edit-role', $data);
+        return view('admin.role.edit-role', $data);
     }
 
     /**
@@ -97,6 +97,6 @@ class BackendRoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return back()->with('success', 'Role Succussfully Deleted');
+        return back()->with('success', 'Role Successfully Deleted');
     }
 }

@@ -23,7 +23,7 @@ class BackendUsersController extends Controller
     public function index()
     {
         $data['users'] = User::with('roles')->latest()->get();
-        return view('admin.users', $data);
+        return view('admin.users.users', $data);
     }
 
     /**
@@ -32,7 +32,7 @@ class BackendUsersController extends Controller
     public function create()
     {
         $data['roles'] = Role::latest()->get();
-        return view('admin.create-user', $data);
+        return view('admin.users.create-user', $data);
     }
 
     /**
@@ -86,7 +86,7 @@ class BackendUsersController extends Controller
         $data['roles'] = Role::latest()->get();
         $data['data'] = $data['user']->roles()->pluck('id')->toArray();
 
-        return view('admin.edit-user', $data);
+        return view('admin.users.edit-user', $data);
     }
 
     /**
@@ -94,7 +94,7 @@ class BackendUsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        
+
         $request->validate([
             'fname' => 'required',
             'lname' => 'required',
@@ -110,7 +110,7 @@ class BackendUsersController extends Controller
                 'password' => $request->password,
             ]);
         }
-        
+
         //User Update
         $user->update([
             'fname' => $request->fname,
@@ -125,7 +125,7 @@ class BackendUsersController extends Controller
         if($user){
             return back()->with('success','Account Update Successfully!');
         }else{
-            return back()->with('error','Something is Worng!');
+            return back()->with('error','Something is wrong!');
         }
     }
 
@@ -135,6 +135,6 @@ class BackendUsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return back()->with('success', 'Succussfully Deleted');
+        return back()->with('success', 'Successfully Deleted');
     }
 }
