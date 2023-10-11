@@ -102,7 +102,7 @@
         NioApp.Passcode('.passcode-switch');
     };
 
-    // Toastr Message @v1.0 
+    // Toastr Message @v1.0
     NioApp.Toast = function (msg, ttype, opt) {
         var ttype = (ttype) ? ttype : 'info', msi = '',
             ticon = (ttype === 'info') ? 'ni ni-info-fill' : ((ttype === 'success') ? 'ni ni-check-circle-fill' : ((ttype === 'error') ? 'ni ni-cross-circle-fill' : ((ttype === 'warning') ? 'ni ni-alert-fill' : ''))),
@@ -322,8 +322,8 @@
 
     //On change validation for third party plugins
     NioApp.Validate.OnChange  = function (elm) {
-        $(elm).on('change', function() { 
-            $(this).valid(); 
+        $(elm).on('change', function() {
+            $(this).valid();
         });
     }
 
@@ -417,7 +417,7 @@
     NioApp.DataTable = function (elm, opt) {
         if ($(elm).exists()) {
             $(elm).each(function () {
-                var auto_responsive = $(this).data('auto-responsive'), has_export = (typeof (opt.buttons) !== 'undefined' && opt.buttons) ? true : false;
+                var auto_responsive = $(this).data('auto-responsive'), has_export = (typeof (opt.buttons) !== 'undefined' && opt.buttons);
                 var export_title = $(this).data('export-title') ? $(this).data('export-title') : 'Export';
                 var btn = (has_export) ? '<"dt-export-buttons d-flex align-center"<"dt-export-title d-none d-md-inline-block">B>' : '', btn_cls = (has_export) ? ' with-export' : '';
                 var dom_normal = '<"row justify-between g-2' + btn_cls + '"<"col-7 col-sm-4 text-start"f><"col-5 col-sm-8 text-end"<"datatable-filter"<"d-flex justify-content-end g-2"' + btn + 'l>>>><"datatable-wrap my-3"t><"row align-items-center"<"col-7 col-sm-12 col-md-9"p><"col-5 col-sm-12 col-md-3 text-start text-md-end"i>>';
@@ -746,7 +746,7 @@
             },
             current_step : data_step_init ? data_step_init : parseInt(opt.current_step),
         }
-        
+
         let nav_items = elm.querySelectorAll(`.${settings.selectors.nav} > *`),
             step_items = elm.querySelectorAll(`.${settings.selectors.content} > *`),
             step_progress = elm.querySelector(`.${settings.selectors.progress}`),
@@ -781,7 +781,7 @@
                 itm.classList.remove(_step_active_class);
             })
             step_items[_index].classList.add(_step_active_class)
-            
+
             //update pagination
             paginateStep(_current);
 
@@ -821,7 +821,7 @@
         }else{
             console.error(_count_error_message);
         }
-        
+
         //step Validation
         let validator = $('#'+elm.id).validate({
             errorElement: "span",
@@ -932,7 +932,7 @@
     //Preloader @v1.0.0
     NioApp.Preloader = function (){
         var $preloader 	= $('.js-preloader');
-		
+
 		if ($preloader.exists()) {
             $body.addClass("page-loaded");
             $preloader.delay(600).fadeOut(300);

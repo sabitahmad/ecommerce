@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\BackendDashboardController;
 use App\Http\Controllers\Backend\BackendPermissionController;
 use App\Http\Controllers\Backend\BackendRoleController;
 use App\Http\Controllers\Backend\BackendUsersController;
+use App\Http\Controllers\Backend\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,11 +32,21 @@ Route::middleware(['guest'])->group(function () {
 });
 Route::get('logout', [LogoutController::class, 'index'])->middleware('auth')->name('logout');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('admin/dashboard', [BackendDashboardController::class, 'index'])->name('backend.dashboard');
-    Route::resource('admin/users', BackendUsersController::class);
-    Route::resource('admin/roles', BackendRoleController::class);
-    Route::resource('admin/permissions', BackendPermissionController::class);
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('dashboard', [BackendDashboardController::class, 'index'])->name('backend.dashboard');
+    Route::resource('users', BackendUsersController::class);
+    Route::resource('roles', BackendRoleController::class);
+    Route::resource('permissions', BackendPermissionController::class);
+
+    //Category routes
+    Route::controller(CategoryController::class)->group(function (){
+        Route::get('category', 'index_category')->name('category.index');
+        Route::post('category/store', 'store_category')->name('category.store');
+        
+    });
+
+
+
 });
 
 

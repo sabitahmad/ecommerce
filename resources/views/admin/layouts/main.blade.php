@@ -84,6 +84,25 @@
     })(NioApp, jQuery);
 </script>
 
+@if($errors->any())
+
+    <script>
+        @foreach($errors->all() as $error)
+
+
+        (function(NioApp, $){
+            'use strict';
+
+            NioApp.Toast('{{$error}}', 'error', {position: 'bottom-right'});
+
+        })(NioApp, jQuery);
+
+
+        @endforeach
+    </script>
+
+@endif
+
 @stack('bottom_js')
 
 
