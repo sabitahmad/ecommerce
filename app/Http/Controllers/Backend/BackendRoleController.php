@@ -46,7 +46,7 @@ class BackendRoleController extends Controller
      */
     public function create()
     {
-        $data['permissions'] = Permission::latest()->get()->groupBy('prefix');
+        $data['groupedPermissions'] = Permission::latest()->get()->groupBy('prefix');
         return view('admin.role.create-role', $data);
     }
 
@@ -83,7 +83,7 @@ class BackendRoleController extends Controller
     public function edit(string $id)
     {
         $data['role'] = Role::findOrFail($id);
-        $data['permissions'] = Permission::latest()->get()->groupBy('prefix');
+        $data['groupedPermissions'] = Permission::latest()->get()->groupBy('prefix');
         return view('admin.role.edit-role', $data);
     }
 
