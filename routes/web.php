@@ -8,6 +8,8 @@ use App\Http\Controllers\Backend\BackendPermissionController;
 use App\Http\Controllers\Backend\BackendRoleController;
 use App\Http\Controllers\Backend\BackendUsersController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\OrdersController;
+use App\Http\Controllers\Backend\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,11 +44,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::controller(CategoryController::class)->group(function (){
         Route::get('category', 'index_category')->name('category.index');
         Route::post('category/store', 'store_category')->name('category.store');
-        
+
     });
 
 
-
+    Route::resource('products', ProductController::class);
+    Route::resource('orders', OrdersController::class);
 });
 
 

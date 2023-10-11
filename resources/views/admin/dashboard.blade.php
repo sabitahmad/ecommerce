@@ -506,8 +506,6 @@
         </div><!-- .row -->
     </div>
 @endsection
-
-
 @push('bottom_js')
     <script src="{{asset('admin/assets/js/charts/chart-ecommerce.js')}}"></script>
 @endpush
