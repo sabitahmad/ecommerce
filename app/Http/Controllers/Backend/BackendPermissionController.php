@@ -11,10 +11,11 @@ class BackendPermissionController extends Controller
     public function __construct()
     {
         $this->middleware(['permission:view permission'])->only('index');
-        $this->middleware(['permission:add permission'])->only(['create','store']);
-        $this->middleware(['permission:edit permission'])->only(['edit','update']);
+        $this->middleware(['permission:add permission'])->only(['create', 'store']);
+        $this->middleware(['permission:edit permission'])->only(['edit', 'update']);
         $this->middleware(['permission:delete permission'])->only('distroy');
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -32,7 +33,7 @@ class BackendPermissionController extends Controller
                 }
             })->latest();
             $query_param = ['search' => $request['search']];
-        }else{
+        } else {
             $query = Permission::latest();
         }
 
@@ -64,10 +65,10 @@ class BackendPermissionController extends Controller
             'prefix' => $request->prefix,
         ]);
 
-        if($permission){
-            return back()->with('success','Permission Create Successfully!');
-        }else{
-            return back()->with('error','Something is Worng!');
+        if ($permission) {
+            return back()->with('success', 'Permission Create Successfully!');
+        } else {
+            return back()->with('error', 'Something is Worng!');
         }
     }
 
@@ -102,10 +103,10 @@ class BackendPermissionController extends Controller
             'prefix' => $request->prefix,
         ]);
 
-        if($permission){
-            return back()->with('success','Permission Update Successfully!');
-        }else{
-            return back()->with('error','Something is Worng!');
+        if ($permission) {
+            return back()->with('success', 'Permission Update Successfully!');
+        } else {
+            return back()->with('error', 'Something is Worng!');
         }
     }
 
@@ -116,10 +117,10 @@ class BackendPermissionController extends Controller
     {
         $permission->delete();
 
-        if($permission){
-            return back()->with('success','Permission Delete Successfully!');
-        }else{
-            return back()->with('error','Something is Worng!');
+        if ($permission) {
+            return back()->with('success', 'Permission Delete Successfully!');
+        } else {
+            return back()->with('error', 'Something is Worng!');
         }
     }
 }

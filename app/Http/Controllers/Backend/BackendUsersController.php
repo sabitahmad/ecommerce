@@ -13,10 +13,11 @@ class BackendUsersController extends Controller
     public function __construct()
     {
         $this->middleware(['permission:view user'])->only('index');
-        $this->middleware(['permission:add user'])->only(['create','store']);
-        $this->middleware(['permission:edit user'])->only(['edit','update']);
+        $this->middleware(['permission:add user'])->only(['create', 'store']);
+        $this->middleware(['permission:edit user'])->only(['edit', 'update']);
         $this->middleware(['permission:delete user'])->only('distroy');
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -30,13 +31,13 @@ class BackendUsersController extends Controller
             $query = User::where(function ($q) use ($key) {
                 foreach ($key as $value) {
                     $q->orWhere('fname', 'like', "%{$value}%")
-                    ->orWhere('lname', 'like', "%{$value}%")
-                    ->orWhere('email', 'like', "%{$value}%")
-                    ->orWhere('phone', 'like', "%{$value}%");
+                        ->orWhere('lname', 'like', "%{$value}%")
+                        ->orWhere('email', 'like', "%{$value}%")
+                        ->orWhere('phone', 'like', "%{$value}%");
                 }
             })->latest();
             $query_param = ['search' => $request['search']];
-        }else{
+        } else {
             $query = User::latest();
         }
 
@@ -51,6 +52,7 @@ class BackendUsersController extends Controller
     public function create()
     {
         $data['roles'] = Role::latest()->get();
+
         return view('admin.users.create-user', $data);
     }
 
@@ -81,10 +83,10 @@ class BackendUsersController extends Controller
 
         $user->syncRoles($request->role);
 
-        if($user){
-            return back()->with('success','Account Create Successfully!');
-        }else{
-            return back()->with('error','Something is Worng!');
+        if ($user) {
+            return back()->with('success', 'Account Create Successfully!');
+        } else {
+            return back()->with('error', 'Something is Worng!');
         }
     }
 
@@ -124,7 +126,7 @@ class BackendUsersController extends Controller
             'password' => 'nullable|min:6',
         ]);
 
-        if(!empty($request->password)){
+        if (! empty($request->password)) {
             $user->update([
                 'password' => $request->password,
             ]);
@@ -141,10 +143,10 @@ class BackendUsersController extends Controller
 
         $user->syncRoles($request->role);
 
-        if($user){
-            return back()->with('success','Account Update Successfully!');
-        }else{
-            return back()->with('error','Something is wrong!');
+        if ($user) {
+            return back()->with('success', 'Account Update Successfully!');
+        } else {
+            return back()->with('error', 'Something is wrong!');
         }
     }
 
@@ -154,6 +156,7 @@ class BackendUsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return back()->with('success', 'Successfully Deleted');
     }
 }

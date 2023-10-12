@@ -33,10 +33,10 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        if($user){
-            return back()->with('success','Account Create Successfully!');
-        }else{
-            return back()->with('error','Something is Worng!');
+        if ($user) {
+            return back()->with('success', 'Account Create Successfully!');
+        } else {
+            return back()->with('error', 'Something is Worng!');
         }
     }
 }

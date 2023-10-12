@@ -21,12 +21,9 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($user)) {
-            return redirect()->route('backend.dashboard')->with('success' , 'Login successful!');
+            return redirect()->route('backend.dashboard')->with('success', 'Login successful!');
         } else {
             return back()->withErrors('Please enter valid details!');
         }
     }
 }
-
-
-
