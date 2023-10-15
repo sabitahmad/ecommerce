@@ -66,9 +66,7 @@
 <!-- JavaScript -->
 <script src="{{asset('admin/assets/js/bundle.js?ver=3.2.3')}}"></script>
 <script src="{{asset('admin/assets/js/scripts.js?ver=3.2.3')}}"></script>
-{{-- Datatable --}}
-<script src="{{asset('admin/assets/js/libs/datatable-btns.js?ver=3.2.3')}}"></script>
-{{-- Datatable --}}
+
 <script>
     (function(NioApp, $){
         'use strict';

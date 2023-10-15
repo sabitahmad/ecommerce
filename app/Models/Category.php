@@ -13,6 +13,7 @@ class Category extends Model
         'description',
         'image',
         'status',
+        'slug',
         'parent_id',
     ];
 
@@ -21,11 +22,8 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
-
     public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
-
-
 }

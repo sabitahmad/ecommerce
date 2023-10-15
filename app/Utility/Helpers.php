@@ -8,8 +8,6 @@ use Intervention\Image\Facades\Image;
 
 class Helpers
 {
-
-
     //Uploads image and convert to png
     public static function upload(string $dir, $image = null): string
     {
@@ -24,24 +22,31 @@ class Helpers
                 $img = Image::make($image);
             }
 
-            $imageName = Carbon::now()->toDateString() . "-" . uniqid() . "." . $format;
+            $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.$format;
 
-            if (!Storage::disk('public')->exists($dir)) {
+            if (! Storage::disk('public')->exists($dir)) {
                 Storage::disk('public')->makeDirectory($dir);
             }
 
             if ($img) {
-                Storage::disk('public')->put($dir . $imageName, $img->stream());
+                Storage::disk('public')->put($dir.$imageName, $img->stream());
             } else {
                 return 'error.png';
             }
+
             return $imageName;
         } else {
             return 'error.png';
         }
     }
 
-
-
+    public static function update(string $dir, $old_image, $image = null): string
+    {
+        if (Storage::disk('public')->exists($dir . $old_image)) {
+            Storage::disk('public')->delete($dir . $old_image);
+        }
+        $imageName = Helpers::upload($dir, $image);
+        return $imageName;
+    }
 
 }

@@ -35,7 +35,7 @@
                                 <a href="{{route('category.index')}}" class="nk-menu-link"><span class="nk-menu-text">Category</span></a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="html/project-list.html" class="nk-menu-link"><span class="nk-menu-text">Sub category</span></a>
+                                <a href="{{route('sub-category.index')}}" class="nk-menu-link"><span class="nk-menu-text">Sub category</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
@@ -66,7 +66,7 @@
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></em></span>
+                            <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
                             <span class="nk-menu-text">Product</span>
                         </a>
                         <ul class="nk-menu-sub">
@@ -80,7 +80,7 @@
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></em></span>
+                            <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
                             <span class="nk-menu-text">Orders</span>
                         </a>
                         <ul class="nk-menu-sub">

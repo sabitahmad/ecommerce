@@ -12,10 +12,11 @@ class BackendRoleController extends Controller
     public function __construct()
     {
         $this->middleware(['permission:view role'])->only('index');
-        $this->middleware(['permission:add role'])->only(['create','store']);
-        $this->middleware(['permission:edit role'])->only(['edit','update']);
+        $this->middleware(['permission:add role'])->only(['create', 'store']);
+        $this->middleware(['permission:edit role'])->only(['edit', 'update']);
         $this->middleware(['permission:delete role'])->only('distroy');
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -32,7 +33,7 @@ class BackendRoleController extends Controller
                 }
             })->latest();
             $query_param = ['search' => $request['search']];
-        }else{
+        } else {
             $query = Role::latest();
         }
 
@@ -47,6 +48,7 @@ class BackendRoleController extends Controller
     public function create()
     {
         $data['groupedPermissions'] = Permission::latest()->get()->groupBy('prefix');
+
         return view('admin.role.create-role', $data);
     }
 
@@ -84,6 +86,7 @@ class BackendRoleController extends Controller
     {
         $data['role'] = Role::findOrFail($id);
         $data['groupedPermissions'] = Permission::latest()->get()->groupBy('prefix');
+
         return view('admin.role.edit-role', $data);
     }
 
@@ -99,7 +102,7 @@ class BackendRoleController extends Controller
         $role->update([
             'name' => $request->role_name,
             'guard_name' => 'web',
-            'updated_at' => date("Y-m-d h:i:sa"),
+            'updated_at' => date('Y-m-d h:i:sa'),
         ]);
 
         $role->syncPermissions($request->permissions);
@@ -113,6 +116,7 @@ class BackendRoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+
         return back()->with('success', 'Role Successfully Deleted');
     }
 }
