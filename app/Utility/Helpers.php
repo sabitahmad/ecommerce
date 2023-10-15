@@ -45,8 +45,7 @@ class Helpers
         if (Storage::disk('public')->exists($dir . $old_image)) {
             Storage::disk('public')->delete($dir . $old_image);
         }
-        $imageName = Helpers::upload($dir, $image);
-        return $imageName;
+        return Helpers::upload($dir, $image);
     }
 
 }
