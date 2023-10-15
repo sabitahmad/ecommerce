@@ -13,7 +13,7 @@ class BackendPermissionController extends Controller
         $this->middleware(['permission:view permission'])->only('index');
         $this->middleware(['permission:add permission'])->only(['create', 'store']);
         $this->middleware(['permission:edit permission'])->only(['edit', 'update']);
-        $this->middleware(['permission:delete permission'])->only('distroy');
+        $this->middleware(['permission:delete permission'])->only('destroy');
     }
 
     /**
@@ -117,10 +117,6 @@ class BackendPermissionController extends Controller
     {
         $permission->delete();
 
-        if ($permission) {
-            return back()->with('success', 'Permission Delete Successfully!');
-        } else {
-            return back()->with('error', 'Something is Worng!');
-        }
+        return back()->with('success', 'Permission Delete Successfully!');
     }
 }

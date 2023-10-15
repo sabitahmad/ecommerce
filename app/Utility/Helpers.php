@@ -39,4 +39,14 @@ class Helpers
             return 'error.png';
         }
     }
+
+    public static function update(string $dir, $old_image, $image = null): string
+    {
+        if (Storage::disk('public')->exists($dir . $old_image)) {
+            Storage::disk('public')->delete($dir . $old_image);
+        }
+        $imageName = Helpers::upload($dir, $image);
+        return $imageName;
+    }
+
 }

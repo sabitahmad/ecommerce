@@ -44,7 +44,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::controller(CategoryController::class)->group(function () {
         Route::get('category', 'index_category')->name('category.index');
         Route::post('category/store', 'store_category')->name('category.store');
-
+        Route::get('sub-category', 'index_subcategory')->name('sub-category.index');
+        Route::post('sub-category/store', 'store_subcategory')->name('sub-category.store');
+        Route::delete('category/delete/{category}', 'destroy_category')->name('category.destroy');
+        Route::get('edit/{id},' ,'edit_category')->name('edit.category');
+        Route::post('update/{id}', 'update_category')->name('update.category');
     });
 
     Route::resource('products', ProductController::class);

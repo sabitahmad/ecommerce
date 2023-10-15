@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
+            $table->string('slug')->unique();
             $table->enum('status', [
                 'active', 'deactivate',
             ]);
