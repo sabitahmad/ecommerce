@@ -153,8 +153,7 @@
                                                            data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Category</span></a>
-                                                                </li>
+                                                                <li><a class="sub-category-edit-button" style="cursor: pointer" data-id="{{$category->id}}"><em class="icon ni ni-edit"></em><span>Edit Category</span></a></li>
                                                                 <li>
                                                                     <form action="{{ route('category.destroy', $category) }}" method="POST">
                                                                         @csrf
@@ -207,9 +206,82 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Category</h5>
+                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form class="form-validate is-alter" method="post" id="modal-form">
+                        @csrf
+                        <div class="form-group">
+                            <label class="form-label" for="full-name">Category Name</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="category-name" name="name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email-address">Category Slug</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="modal-category-slug" name="slug" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Main Category</label>
+                            <div class="form-control-wrap">
+                                <select class="form-select js-select2" data-search="on" name="parent_id">
+                                    @foreach(\App\Models\Category::query()->where('parent_id', null)->get() as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="cat-modal-status">Category Status</label>
+                            <div class="custom-switch">
+                                <input type="checkbox" class="custom-control-input" name="status" id="cat-modal-status">
+                                <label class="custom-control-label" for="cat-modal-status">Active</label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 
 @push('bottom_js')
+
+    <script>
+        $(document).ready(function () {
+
+
+            $('.sub-category-edit-button').click(function () {
+                const id = $(this).data('id');
+                $.get('{{ route('edit.category', ['id' => ':id']) }}'.replace(':id', id), function (data) {
+                    $('#category-name').val(data.name);
+                    $('#modal-category-slug').val(data.slug);
+                    $('#cat-modal-status').prop('checked', data.status === 'active');
+                    $('#modal-form').attr('action', '{{ route('update.category', ['id' => ':id']) }}'.replace(':id', id)); // Set form action
+                    $('#modalForm').modal('show'); // Show modal
+                });
+            });
+
+
+        });
+    </script>
 
 @endpush
