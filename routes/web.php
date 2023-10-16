@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\BackendPermissionController;
 use App\Http\Controllers\Backend\BackendRoleController;
 use App\Http\Controllers\Backend\BackendUsersController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ColorController;
 use App\Http\Controllers\Backend\OrdersController;
 use App\Http\Controllers\Backend\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::delete('category/delete/{category}', 'destroy_category')->name('category.destroy');
         Route::get('edit/{id},' ,'edit_category')->name('edit.category');
         Route::post('update/{id}', 'update_category')->name('update.category');
+    });
+
+    Route::controller(ColorController::class)->group(function () {
+        Route::get('color', 'index_color')->name('color.index');
+        Route::post('color/store', 'store_color')->name('color.store');
+        Route::get('color/edit/{id},' ,'edit_color')->name('edit.color');
+        Route::post('color/update/{id}', 'update_color')->name('update.color');
+        Route::delete('color/delete/{id}', 'destroy_color')->name('color.destroy');
     });
 
     Route::resource('products', ProductController::class);

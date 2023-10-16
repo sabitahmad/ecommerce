@@ -49,7 +49,6 @@ class RolePermissionSeeder extends Seeder
                 'prefix' => 'role',
                 'name' => 'delete role',
             ],
-            
             [
                 'prefix' => 'product',
                 'name' => 'view product',
@@ -65,6 +64,22 @@ class RolePermissionSeeder extends Seeder
             [
                 'prefix' => 'product',
                 'name' => 'delete product',
+            ],
+            [
+                'prefix' => 'color',
+                'name' => 'view color',
+            ],
+            [
+                'prefix' => 'color',
+                'name' => 'add color',
+            ],
+            [
+                'prefix' => 'color',
+                'name' => 'edit color',
+            ],
+            [
+                'prefix' => 'color',
+                'name' => 'delete color',
             ],
         ];
         foreach ($permissions as $item) {

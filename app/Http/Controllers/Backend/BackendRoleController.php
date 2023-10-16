@@ -39,7 +39,7 @@ class BackendRoleController extends Controller
 
         $roles = $query->paginate(10)->appends($query_param);
 
-        return view('admin.role.roles', compact('roles', 'search'));
+        return view('admin.setup.role.index', compact('roles', 'search'));
     }
 
     /**
@@ -49,7 +49,7 @@ class BackendRoleController extends Controller
     {
         $data['groupedPermissions'] = Permission::latest()->get()->groupBy('prefix');
 
-        return view('admin.role.create-role', $data);
+        return view('admin.setup.role.create', $data);
     }
 
     /**
@@ -87,7 +87,7 @@ class BackendRoleController extends Controller
         $data['role'] = Role::findOrFail($id);
         $data['groupedPermissions'] = Permission::latest()->get()->groupBy('prefix');
 
-        return view('admin.role.edit-role', $data);
+        return view('admin.setup.role.edit', $data);
     }
 
     /**

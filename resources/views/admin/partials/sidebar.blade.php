@@ -59,6 +59,11 @@
                             <li class="nk-menu-item">
                                 <a href="{{ route('roles.index') }}" class="nk-menu-link"><span class="nk-menu-text">Role</span></a>
                             </li>
+                            @can(['view color','add color'])
+                            <li class="nk-menu-item">
+                                <a href="{{ route('color.index') }}" class="nk-menu-link"><span class="nk-menu-text">Color</span></a>
+                            </li>
+                            @endcan
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">
