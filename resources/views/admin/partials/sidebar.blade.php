@@ -59,9 +59,6 @@
                             <li class="nk-menu-item">
                                 <a href="{{ route('roles.index') }}" class="nk-menu-link"><span class="nk-menu-text">Role</span></a>
                             </li>
-                            <li class="nk-menu-item">
-                                <a href="{{ route('permissions.index') }}" class="nk-menu-link"><span class="nk-menu-text">Permission</span></a>
-                            </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">
