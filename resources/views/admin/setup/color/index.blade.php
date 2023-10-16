@@ -163,18 +163,19 @@
                                 </span>
                             </div>
                             <div class="nk-tb-col nk-tb-col-tools">
+
                                 <div class="btn-group">
-                                        @can('edit color')
-                                            <a href="{{ route('roles.edit', $color->id) }}" type="button" class="btn btn-primary btn-sm">Edit</a>
-                                        @endcan
-                                        @can('delete color')
-                                        <form action="{{ route('color.destroy', $color->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
-                                        </form>
-                                        @endcan
-                                    </div>
+                                    @can('edit color')
+                                        <button  type="button"  data-id="{{$color->id}}" class="btn btn-primary btn-sm color-edit-button">Edit</button>
+                                    @endcan
+                                    @can('delete color')
+                                    <form action="{{ route('color.destroy', $color->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
+                                    </form>
+                                    @endcan
+                                </div>
                             </div>
                         </div><!-- .nk-tb-item -->
                         @endforeach
@@ -190,4 +191,93 @@
     <!--end col-->
 </div>
 <!--end row-->
+
+<div class="modal fade" id="modalForm">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Color</h5>
+                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form class="form-validate is-alter" method="post" id="modal-form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label class="form-label" for="full-name">Color Name</label>
+                        <div class="form-control-wrap">
+                            <input type="text" class="form-control" id="color-name" name="color_name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email-address">Color Slug</label>
+                        <div class="form-control-wrap">
+                            <input type="color" class="form-control" id="modal-color-code" name="color_code" required>
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label class="form-label" for="cat-modal-status">Color Status</label>
+                        <div class="custom-switch">
+                            <input type="checkbox" class="custom-control-input" name="status" id="color-modal-status">
+                            <label class="custom-control-label" for="color-modal-status">Active</label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+@push('bottom_js')
+
+    <script>
+        $(document).ready(function () {
+            $("#catImage").change(function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#imagePreview").attr("src", e.target.result).show();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            $("#cat-modal-image").change(function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#modalImagePreview").attr("src", e.target.result).show();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+
+            $('.color-edit-button').click(function () {
+                const id = $(this).data('id');
+
+                $.get('{{ route('edit.color', ['id' => ':id']) }}'.replace(':id', id), function (data) {
+                    $('#color-name').val(data.name);
+                    $('#modal-color-code').val(data.code);
+                    $('#color-modal-status').prop('checked', data.status === 1);
+
+                    $('#modal-form').attr('action', '{{ route('update.color', ['id' => ':id']) }}'.replace(':id', id)); // Set form action
+                    $('#modalForm').modal('show'); // Show modal
+                });
+            });
+
+
+        });
+    </script>
+
+@endpush
