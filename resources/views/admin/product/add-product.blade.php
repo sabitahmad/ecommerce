@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label class="form-label" for="regular-price">Regular Price</label>
                             <div class="form-control-wrap">
-                                <input type="number" class="form-control" id="regular-price">
+                                <input type="number" class="form-control" id="regular-price" placeholder="Regular Price">
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label class="form-label" for="sale-price">Sale Price</label>
                             <div class="form-control-wrap">
-                                <input type="number" class="form-control" id="sale-price">
+                                <input type="number" class="form-control" id="sale-price" placeholder="Sale Price">
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="form-group">
                             <label class="form-label" for="stock">Stock</label>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="stock">
+                                <input type="text" class="form-control" id="stock" placeholder="Stock">
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         <div class="form-group">
                             <label class="form-label" for="SKU">SKU</label>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="SKU">
+                                <input type="text" class="form-control" id="SKU" placeholder="SKU">
                             </div>
                         </div>
                     </div>
@@ -123,12 +123,10 @@
                             <div class="form-group">
                                 <label class="form-label">Main Category</label>
                                 <div class="form-control-wrap">
-                                    <select class="form-select js-select2" multiple="multiple" data-placeholder="Select Multiple options">
-                                        <option value="default_option">Default Option</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
+                                    <select class="form-select js-select2" data-placeholder="Select Category">
+                                        @foreach ($categorys as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -137,18 +135,10 @@
                             <div class="form-group">
                                 <label class="form-label">Sub Category</label>
                                 <div class="form-control-wrap">
-                                    <select class="form-select js-select2" multiple="multiple" data-placeholder="Select Multiple options">
-                                        <option value="default_option">Default Option</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
-                                        <option value="option_select_name">Option select name</option>
+                                    <select class="form-select js-select2" multiple="multiple" data-placeholder="Select sub category">
+                                         @foreach ($sub_categorys as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
