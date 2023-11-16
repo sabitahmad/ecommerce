@@ -81,6 +81,22 @@ class RolePermissionSeeder extends Seeder
                 'prefix' => 'color',
                 'name' => 'delete color',
             ],
+            [
+                'prefix' => 'attribute',
+                'name' => 'view attribute',
+            ],
+            [
+                'prefix' => 'attribute',
+                'name' => 'add attribute',
+            ],
+            [
+                'prefix' => 'attribute',
+                'name' => 'edit attribute',
+            ],
+            [
+                'prefix' => 'attribute',
+                'name' => 'delete attribute',
+            ],
         ];
         foreach ($permissions as $item) {
             Permission::create($item);

@@ -12,8 +12,7 @@ use Str;
 
 class CategoryController extends Controller
 {
-    public function index_category(Request $request)
-    {
+    public function index_category(Request $request) {
 
         $query_param = [];
         $search = $request['search'];
@@ -178,6 +177,14 @@ class CategoryController extends Controller
 
         return back()->with('error', 'Something went wrong!');
 
+    }
+
+    public function get_sub_categories(Request $request)
+    {
+        $mainCategoryId = $request->input('child_id');
+        $subCategories = Category::where('parent_id', $mainCategoryId)->get();
+
+        return response()->json($subCategories);
     }
 
 }

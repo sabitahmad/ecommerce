@@ -1,7 +1,7 @@
 <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
-            <a href="html/index.html" class="logo-link nk-sidebar-logo">
+            <a href="{{route('backend.dashboard')}}" class="logo-link nk-sidebar-logo">
                 <img class="logo-light logo-img" src="{{ url('admin/assets/images/logo.png') }}" alt="logo">
                 <img class="logo-dark logo-img" src="{{ url('admin/assets/images/logo-dark.png') }}" alt="logo-dark">
                 <img class="logo-small logo-img logo-img-small" src="{{ url('admin/assets/images/logo-small.png') }}" srcset="./images/logo-small2x.png 2x" alt="logo-small">
@@ -39,8 +39,28 @@
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-
-
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
+                            <span class="nk-menu-text">Product</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('products.create') }}" class="nk-menu-link"><span class="nk-menu-text">Add Product</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('products.index') }}" class="nk-menu-link"><span class="nk-menu-text">Product List</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+                    @can(['view attribute','add attribute'])
+                    <li class="nk-menu-item">
+                        <a href="{{ route('attribute.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-color-palette"></em></span>
+                            <span class="nk-menu-text">Attributes</span>
+                        </a>
+                    </li><!-- .nk-menu-item -->
+                    @endcan
                     <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">User management</h6>
                     </li>
@@ -64,20 +84,6 @@
                                 <a href="{{ route('color.index') }}" class="nk-menu-link"><span class="nk-menu-text">Color</span></a>
                             </li>
                             @endcan
-                        </ul><!-- .nk-menu-sub -->
-                    </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
-                            <span class="nk-menu-text">Product</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="{{ route('products.create') }}" class="nk-menu-link"><span class="nk-menu-text">Add Product</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="{{ route('products.index') }}" class="nk-menu-link"><span class="nk-menu-text">Product List</span></a>
-                            </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">

@@ -2,6 +2,7 @@
 
 namespace App\Utility;
 
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -46,6 +47,20 @@ class Helpers
             Storage::disk('public')->delete($dir . $old_image);
         }
         return Helpers::upload($dir, $image);
+    }
+
+
+    public static function generateUniqueSlug($slug)
+    {
+        $counter = 1;
+        $suggestedSlug = $slug;
+
+        while (Product::where('slug', $suggestedSlug)->exists()) {
+            $counter++;
+            $suggestedSlug = $slug . '-' . $counter;
+        }
+
+        return $suggestedSlug;
     }
 
 }

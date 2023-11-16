@@ -1,8 +1,8 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Add Product')
+@section('title', 'Edit Product')
 
-@section('head_title', 'Add Product')
+@section('head_title', 'Edit Product')
 @push('top_css')
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
@@ -22,7 +22,7 @@
                                     <label class="form-label" for="product-title">Product Name</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" name="product_name" id="product-title"
-                                               placeholder="Product Name" value="{{old('product_name')}}">
+                                               placeholder="Product Name" value="{{$product->name}}">
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon3">{{url('/').'/products/'}}</span>
                                             </div>
-                                            <input type="text" class="form-control" id="product-slug" name="product_slug" value="{{old('product_slug')}}">
+                                            <input type="text" class="form-control" id="product-slug" name="product_slug" value="{{$product->slug}}">
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                     <label class="form-label" for="regular-price">Regular Price</label>
                                     <div class="form-control-wrap">
                                         <input type="number" class="form-control" name="product_price" min="0" step="0.01"
-                                               id="regular-price" placeholder="Regular Price" value="{{old('product_price', 0)}}">
+                                               id="regular-price" placeholder="Regular Price" value="{{$product->regular_price}}">
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                     <label class="form-label" for="regular-price">Discount </label>
                                     <div class="form-control-wrap">
                                         <input type="number" class="form-control" name="product_discount"
-                                               id="regular-price" placeholder="Discount amount" value="{{old('product_discount', 0)}}">
+                                               id="regular-price" placeholder="Discount amount" value="{{$product->discount_price}}">
                                     </div>
                                 </div>
                             </div>
@@ -77,8 +77,8 @@
                                     <label class="form-label">Discount Type</label>
                                     <div class="form-control-wrap">
                                         <select class="form-select js-select2" data-placeholder="Select Discount Type" name="product_discount_type">
-                                            <option value="amount" {{old('product_discount_type', 'fixed') === 'fixed' ? 'selected':''}}>Fixed</option>
-                                            <option value="percent" {{old('product_discount_type') === 'percentage' ? 'selected':''}}>Percentage</option>
+                                            <option value="amount" {{$product->discount_type === 'amount' ? 'selected':''}}>Fixed</option>
+                                            <option value="percent" {{$product->discount_type === 'percent' ? 'selected':''}}>Percentage</option>
                                         </select>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                     <label class="form-label" for="stock">Stock</label>
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" name="product_stock" id="stock"
-                                               placeholder="Stock" value="{{old('product_stock' , 1)}}">
+                                               placeholder="Stock" value="{{$product->stock}}">
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="SKU">SKU</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" name="product_sku" id="SKU" placeholder="SKU" value="{{old('product_sku')}}">
+                                        <input type="text" class="form-control" name="product_sku" id="SKU" placeholder="SKU" value="{{$product->sku}}">
                                     </div>
                                 </div>
                             </div>
@@ -295,7 +295,7 @@
                                     <div class="form-control-wrap">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Product Tag"
-                                                   name="product_tags" value="{{old('product_tags')}}">
+                                                   name="product_tags" value="{{$product->tags}}">
                                         </div>
                                     </div>
                                 </div>
@@ -324,104 +324,74 @@
     <script src="{{ asset('admin/assets/js/libs/tagify.js') }}"></script>
     <script>
         FilePond.registerPlugin(FilePondPluginImagePreview);
-        $(document).ready(function () {
+        const thumbPond = FilePond.create(document.querySelector('input[name="thumbnail"]'), {
+            credits: false,
+            acceptedFileTypes: ['image/jpeg', 'image/png', 'image/gif'],
+            imagePreviewHeight: 170,
+            labelIdle: `Drag & Drop your product thumbnail or <span class="filepond--label-action">Browse</span>`,
+            allowMultiple: false,
 
+        });
 
-            const thumbPond = FilePond.create(document.querySelector('input[name="thumbnail"]'), {
-                credits: false,
-                acceptedFileTypes: ['image/jpeg', 'image/png', 'image/gif'],
-                imagePreviewHeight: 170,
-                labelIdle: `Drag & Drop your product thumbnail or <span class="filepond--label-action">Browse</span>`,
-                allowMultiple: false,
+        let existingThumb = "{{$product->thumbnail}}"
 
-            });
-
-            @if(old('thumbnail'))
-
-            let existingThumb = "{{old('thumbnail')}}"
-
-            thumbPond.setOptions({
-                server: {
-                    process: '{{route('upload.thumbnail')}}',
-                    fetch: null,
-                    restore: '{{route('restore.thumbnail').'?restore='}}',
-                    revert: '{{route('delete.thumbnail')}}',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{csrf_token()}}'
+        thumbPond.setOptions({
+            files: [
+                {
+                    source: existingThumb,
+                    options: {
+                        type: 'local' // Indicate that this is an existing file
                     }
+                }
+            ],
+            server: {
+                process: '{{route('upload.thumbnail')}}',
+                fetch: null,
+                restore: '{{route('restore.thumbnail').'?restore='}}',
+                load: (uniqueFileId, load) => {
+                    fetch('https://ecommerce.test/file/thumbnail/restore?restore='+uniqueFileId)
+                        .then(res => res.blob())
+                        .then(load);
                 },
-                files: [
-                    {
-                        source: existingThumb,
-                        options: {
-                            type: 'limbo' // Indicate that this is an existing file
-                        }
+                revert: '{{route('delete.thumbnail')}}',
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                }
+            },
+
+        })
+
+        const proImgPond = FilePond.create(document.querySelector('input[name="product_images[]"]'), {
+            acceptedFileTypes: ['image/*'],
+            labelIdle: `Drag & Drop your product image or <span class="filepond--label-action">Browse</span>`,
+            credits: false,
+            imagePreviewHeight: 170,
+            allowMultiple: true,
+            maxFiles: 5,
+            allowReorder: false,
+        });
+
+        let existingProductImage = @json(json_decode($product->product_images));
+
+
+        proImgPond.setOptions({
+            server: {
+                process: '{{route('upload.product-image')}}',
+                fetch: null,
+                restore: '{{route('restore.product-image').'?restore='}}',
+                revert: '{{route('delete.product-image')}}',
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                }
+            },
+            files: existingProductImage.map(image => (
+                {
+                    source: image,
+                    options: {
+                        type: 'limbo'
                     }
-                ],
-            })
-            @else
-            thumbPond.setOptions({
-                server: {
-                    process: '{{route('upload.thumbnail')}}',
-                    fetch: null,
-                    revert: '{{route('delete.thumbnail')}}',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{csrf_token()}}'
-                    }
-                },
-            })
-            @endif
-
-
-            // Product Images
-
-
-            const proImgPond = FilePond.create(document.querySelector('input[name="product_images[]"]'), {
-                acceptedFileTypes: ['image/*'],
-                labelIdle: `Drag & Drop your product image or <span class="filepond--label-action">Browse</span>`,
-                credits: false,
-                imagePreviewHeight: 170,
-                allowMultiple: true,
-                maxFiles: 5,
-                allowReorder: false,
-            });
-
-            @if(old('product_images'))
-
-            let existingProductImage = @json(old('product_images', []));
-
-
-                proImgPond.setOptions({
-                    server: {
-                        process: '{{route('upload.product-image')}}',
-                        fetch: null,
-                        restore: '{{route('restore.product-image').'?restore='}}',
-                        revert: '{{route('delete.product-image')}}',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{csrf_token()}}'
-                        }
-                    },
-                    files: existingProductImage.map(image => (
-                        {
-                            source: image,
-                            options: {
-                                type: 'limbo'
-                            }
-                        }
-                    ))
-                })
-            @else
-                proImgPond.setOptions({
-                server: {
-                    process: '{{route('upload.product-image')}}',
-                    fetch: null,
-                    revert: '{{route('delete.product-image')}}',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{csrf_token()}}'
-                    }
-                },
-            })
-            @endif
+                }
+            ))
         })
 
         const input = document.querySelector('input[name="product_tags"]');
@@ -636,10 +606,10 @@
                 about.val(JSON.stringify(quill.getContents()));
             });
 
-            @if(old('product_description') !== null)
-                let old = {!! old('product_description') !!};
-                quill.setContents(old);
-            @endif
+
+            let old = {!! $product->long_description !!};
+            quill.setContents(old);
+
 
         });
     </script>
